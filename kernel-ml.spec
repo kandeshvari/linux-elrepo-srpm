@@ -1,7 +1,7 @@
 %global __spec_install_pre %{___build_pre}
 
 # Define the version of the Linux Kernel Archive tarball.
-%define LKAver 4.1.3
+%define LKAver 4.1.5
 
 # Define the buildid, if required.
 %define buildid .jet9.net_lim
@@ -177,8 +177,7 @@ Source3: config-%{version}-x86_64
 NoSource: 0
 
 # Patches
-Patch0: 0001-Add-network-limits-control-group.patch
-Patch1: 0001-Switch-stacks-on-userspace-NMI-entry.patch
+Patch0: 0001-cgroup-add-network-limits-subsystem.patch
 
 %description
 This package provides the Linux kernel (vmlinuz), the core of any
@@ -313,8 +312,7 @@ This package provides the perf tool and the supporting documentation.
 %prep
 %setup -q -n %{name}-%{version} -c
 cd linux-%{LKAver}
-%patch0 -p1 -b .net_lim_group
-%patch1 -p1 -b .nmi_stack_switch_CVE-2015-3290
+%patch0 -p1 -b .net_lim_cgroup_subsys
 cd ..
 %{__mv} linux-%{LKAver} linux-%{version}-%{release}.%{_target_cpu}
 pushd linux-%{version}-%{release}.%{_target_cpu} > /dev/null
